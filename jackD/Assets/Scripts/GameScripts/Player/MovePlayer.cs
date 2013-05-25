@@ -18,7 +18,7 @@ public class MovePlayer : MonoBehaviour {
 		
 		float angle = rotateAngle;		
 		if (Application.platform == RuntimePlatform.Android) {
-			angle = Mathf.Min (Input.acceleration.x*10);
+			angle = Mathf.Min (Input.acceleration.x*30, rotateAngle);
 			transform.Rotate(0,angle * Time.deltaTime, 0);
 		} else {
 			if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)) {
