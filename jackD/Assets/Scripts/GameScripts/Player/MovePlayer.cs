@@ -12,5 +12,7 @@ public class MovePlayer : MonoBehaviour {
 		//transform.Translate(0.4f,0,0);
 		CharacterController controller = GetComponent<CharacterController>();
         controller.SimpleMove(transform.right * speed);
+		
+		Debug.Log(Mathf.PerlinNoise(4, 5));
 	}
 }
