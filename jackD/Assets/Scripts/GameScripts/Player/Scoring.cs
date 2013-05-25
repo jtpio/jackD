@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Scoring : MonoBehaviour {
 
-	
 	protected int score = 0;
 	
 	void Start () {
@@ -16,7 +15,8 @@ public class Scoring : MonoBehaviour {
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit) {
-		if (hit.gameObject.name == "Item(Clone)") {
+		Debug.Log ("collision character");
+		if (hit.gameObject.name == "Cube(Clone)") {
 			Debug.Log ("collision with item");	
 			Destroy(hit.gameObject);
 			score++;
@@ -25,7 +25,7 @@ public class Scoring : MonoBehaviour {
 	
 	void OnGUI () {
 		if (GUI.Button (new Rect (10,10,100,50), "Score " + score)) {
-			print ("You clicked the button!");
+			print ("Clicked!");
 		}
 	}
 }
