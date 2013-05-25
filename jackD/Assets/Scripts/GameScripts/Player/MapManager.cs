@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour {
 	protected Terrain[,] grid;
 	
 	protected float terrainSize;
+	protected Vector2 nextBlock;
 	
 	void Start () {
 		terrainSize = terrain.terrainData.size.x;
@@ -31,22 +32,34 @@ public class MapManager : MonoBehaviour {
 		GameObject parent = box.transform.parent.gameObject;
 		Vector2 pos = GetBoxPos(parent);
 		Debug.Log ("Triggered object at " + pos);
-		Step(pos);
+		
+		bool save = ((int)pos.x) % 2 != 0 || ((int)pos.y) % 2 != 0;
+		if (save) nextBlock = pos;
+	}
+	
+	void OnTriggerExit(Collider other) {
+		GameObject box = other.gameObject;
+		GameObject parent = box.transform.parent.gameObject;
+		Vector2 pos = GetBoxPos(parent);
+		if (pos.Equals(new Vector2(1,1))) {
+			Step(nextBlock);
+		}
 	}
 	
 	void Step(Vector2 center) {
-	
 		Terrain[,] newGrid = new Terrain[3,3];
+		Vector2 diff = center + (new Vector2(2,2));
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				newGrid[i,j] = grid[(i+(int)diff.x)%3,(j+(int)diff.y)%3];
+			}
+		}
 		
 		// going up
 		if (center.x == 1 && center.y == 2) {
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[i,0], 0, 0, 3*terrainSize);
-			}
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					newGrid[i,j] = grid[i,(j+1)%3];
-				}
 			}
 			grid = newGrid;
 		} else if (center.x == 1 && center.y == 0) {
@@ -54,21 +67,11 @@ public class MapManager : MonoBehaviour {
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[i,2], 0, 0, -3*terrainSize);
 			}
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					newGrid[i,j] = grid[i,(j+2)%3];
-				}
-			}
 			grid = newGrid;
 		} else if (center.x == 0 && center.y == 1) {
 			// going left
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[2,i], -3*terrainSize, 0, 0);
-			}
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					newGrid[i,j] = grid[(i+2)%3,j];
-				}
 			}
 			grid = newGrid;
 		} else if (center.x == 2 && center.y == 1) {
@@ -76,13 +79,11 @@ public class MapManager : MonoBehaviour {
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[0,i], 3*terrainSize, 0, 0);
 			}
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					newGrid[i,j] = grid[(i+1)%3,j];
-				}
-			}
 			grid = newGrid;
+		} else {
+			Debug.Log ("oh shit " + center);
 		}
+		
 	}
 	
 	void TranslateTerrain(Terrain t, float dx, float dy, float dz) {

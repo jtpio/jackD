@@ -18,13 +18,15 @@ public class Noise : MonoBehaviour {
 			for (int j = 0; j < terrain.terrainData.heightmapHeight; j++) {
 				
 				int coeff = tileSize;
+				/*
 				if (i < offset || j < offset || i > terrain.terrainData.heightmapWidth - offset || j > terrain.terrainData.heightmapHeight - offset) {
 					coeff = 0;	
 				}
+				*/
 				heights[i, j] = Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * coeff, ((float)j / (float)terrain.terrainData.heightmapHeight) * coeff)/10.0f;
 			}
 		}
-		terrain.terrainData.SetHeights(0, 0, heights);	
+		terrain.terrainData.SetHeights(4, 4, heights);	
 	}
 	
 	void Update () {
