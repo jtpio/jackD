@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour {
 	protected float terrainSize;
 	protected Vector2 nextBlock;
 	
-	void Start () {
+	void Awake() {
 		terrainSize = terrain.terrainData.size.x;
 		
 		grid = new Terrain[3,3];
@@ -25,6 +25,10 @@ public class MapManager : MonoBehaviour {
 				grid[i,j] = (Terrain) Instantiate(terrain, new Vector3(i * terrainSize, 0, j * terrainSize), Quaternion.identity);
 			}
 		}
+	}
+	
+	void Start () {
+		
 	}
 	
 	void Update () {
