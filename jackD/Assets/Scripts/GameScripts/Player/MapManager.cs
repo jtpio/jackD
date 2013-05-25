@@ -7,6 +7,9 @@ public class MapManager : MonoBehaviour {
 	// prefabs
 	public Terrain terrain;
 	public GameObject trigger;
+	public Transform itemPrefab;
+	
+	public int spawnRate = 1; // over 1000
 	
 	protected Terrain[,] grid;
 	
@@ -26,8 +29,8 @@ public class MapManager : MonoBehaviour {
 	
 	void Update () {
 		
+		// map generation
 		Vector2 currInds = this.currentIndices();
-		
 		if ( currInds.x != 1 ) {
 			this.Step( new Vector2(currInds.x,1));
 		}
@@ -35,7 +38,17 @@ public class MapManager : MonoBehaviour {
 			this.Step( new Vector2(1,currInds.y));
 		}
 		
-		Debug.Log ("update");
+		if (Random.Range (0,100) < spawnRate) {
+			Vector3 playerPos = transform.position;
+			for (int i = 0; i < 5; i++) {
+				float posX = playerPos.x + Random.Range(-100, 100); 
+				float posZ = playerPos.z + Random.Range(-100, 100);
+				Vector3 posItem = new Vector3(posX, playerPos.y+2, posZ);
+				Instantiate(itemPrefab, posItem, Quaternion.identity);
+			}
+			
+		}
+		
 	}
 	
 	Vector2 currentIndices () {
@@ -53,27 +66,6 @@ public class MapManager : MonoBehaviour {
 		
 		return (new Vector2(1,1));
 	}
-	
-	/*
-	void OnTriggerEnter(Collider other) {
-		GameObject box = other.gameObject;
-		GameObject parent = box.transform.parent.gameObject;
-		Vector2 pos = GetBoxPos(parent);
-		Debug.Log ("Triggered object at " + pos);
-		
-		bool save = ((int)pos.x) % 2 != 0 || ((int)pos.y) % 2 != 0;
-		if (save) nextBlock = pos;
-	}
-	
-	void OnTriggerExit(Collider other) {
-		GameObject box = other.gameObject;
-		GameObject parent = box.transform.parent.gameObject;
-		Vector2 pos = GetBoxPos(parent);
-		if (pos.Equals(new Vector2(1,1))) {
-			Step(nextBlock);
-		}
-	}
-	*/
 	
 	void Step(Vector2 center) {
 		Terrain[,] newGrid = new Terrain[3,3];
@@ -128,5 +120,13 @@ public class MapManager : MonoBehaviour {
 			}
 		}
 		return (new Vector2(-1,-1));
+	}
+	
+	
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		if (hit.gameObject.name == "Item(Clone)") {
+			Debug.Log ("collision with item");	
+			Destroy(hit.gameObject);
+		}
 	}
 }
