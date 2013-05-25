@@ -7,8 +7,7 @@ public class Noise : MonoBehaviour {
 	
 	void Start () {
 		terrain = GetComponent<Terrain>();
-		float[,] heights = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
-		terrain.terrainData.SetHeights(0, 0, heights);
+		GenerateNoise(0);
 		GenerateNoise(5);
 	}
 	
@@ -25,4 +24,6 @@ public class Noise : MonoBehaviour {
 	void Update () {
 
 	}
+	
+	
 }

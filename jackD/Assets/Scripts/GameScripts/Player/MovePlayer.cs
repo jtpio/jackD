@@ -4,13 +4,22 @@ using System.Collections;
 public class MovePlayer : MonoBehaviour {
 	
 	public float speed = 3.0f;
+	public float rotateAngle = 1.0f;
 	
 	void Start () {
 		
 	}
 	
 	void Update () {
-		//transform.Translate(0.4f,0,0);
+		// inputs
+		
+		if (Input.GetKey(KeyCode.LeftArrow)) {
+			transform.Rotate(0,-rotateAngle,0);	
+		}
+		if (Input.GetKey(KeyCode.RightArrow)) {
+			transform.Rotate(0,rotateAngle,0);	
+		}
+		
 		CharacterController controller = GetComponent<CharacterController>();
         controller.SimpleMove(transform.right * speed);
 	}
