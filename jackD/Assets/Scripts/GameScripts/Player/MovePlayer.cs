@@ -4,7 +4,7 @@ using System.Collections;
 public class MovePlayer : MonoBehaviour {
 	
 	public float speed = 3.0f;
-	public float rotateAngle = 1.0f;
+	public float rotateAngle = 0.5f;
 	
 	void Start () {
 		transform.position.Set(125, 0, 125);
@@ -17,10 +17,11 @@ public class MovePlayer : MonoBehaviour {
 			transform.Rotate(0,-rotateAngle,0);	
 		}
 		if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
-			transform.Rotate(0,rotateAngle,0);	
+			transform.Rotate(0,rotateAngle,0);
 		}
 		
 		CharacterController controller = GetComponent<CharacterController>();
 		controller.SimpleMove(transform.right * speed);
+	
 	}
 }

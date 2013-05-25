@@ -26,7 +26,7 @@ public class Noise : MonoBehaviour {
 				heights[i, j] = Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * coeff, ((float)j / (float)terrain.terrainData.heightmapHeight) * coeff)/10.0f;
 			}
 		}
-		terrain.terrainData.SetHeights(4, 4, heights);	
+		terrain.terrainData.SetHeights(0,0, heights);	
 	}
 	
 	void Update () {

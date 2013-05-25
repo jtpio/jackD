@@ -25,8 +25,36 @@ public class MapManager : MonoBehaviour {
 	}
 	
 	void Update () {
+		
+		Vector2 currInds = this.currentIndices();
+		
+		if ( currInds.x != 1 ) {
+			this.Step( new Vector2(currInds.x,1));
+		}
+		if ( currInds.y != 1 ) {
+			this.Step( new Vector2(1,currInds.y));
+		}
+		
+		Debug.Log ("update");
 	}
 	
+	Vector2 currentIndices () {
+		Vector3 playerPos = transform.position;
+		float half = 0.5f*terrainSize;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				Vector3 pos = grid[i,j].transform.position;
+				if ( Mathf.Abs(pos.x + half - playerPos.x)<half && Mathf.Abs(pos.z + half -playerPos.z)<half ) {
+					Vector2 rv = new Vector2(i,j);
+					return rv;
+				}
+			}
+		}
+		
+		return (new Vector2(1,1));
+	}
+	
+	/*
 	void OnTriggerEnter(Collider other) {
 		GameObject box = other.gameObject;
 		GameObject parent = box.transform.parent.gameObject;
@@ -45,6 +73,7 @@ public class MapManager : MonoBehaviour {
 			Step(nextBlock);
 		}
 	}
+	*/
 	
 	void Step(Vector2 center) {
 		Terrain[,] newGrid = new Terrain[3,3];
