@@ -9,7 +9,7 @@ public class Noise : MonoBehaviour {
 	void Start () {
 		terrain = GetComponent<Terrain>();
 		GenerateNoise(0);
-		GenerateNoise(3);
+		GenerateNoise(1);
 	}
 	
 	void GenerateNoise(int tileSize) {
@@ -21,7 +21,8 @@ public class Noise : MonoBehaviour {
 				if (i < offset || j < offset || i > terrain.terrainData.heightmapWidth - offset || j > terrain.terrainData.heightmapHeight - offset) {
 					coeff = 0;	
 				}
-				heights[i, j] = Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * coeff, ((float)j / (float)terrain.terrainData.heightmapHeight) * coeff)/10.0f;
+				//heights[i, j] = Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * coeff, ((float)j / (float)terrain.terrainData.heightmapHeight) * coeff)/10.0f;
+				heights[i,j] = Mathf.PerlinNoise((float)i/(float)terrain.terrainData.heightmapWidth, (float)j/(float)terrain.terrainData.heightmapHeight) / 3.0f;
 			}
 		}
 		terrain.terrainData.SetHeights(0,0, heights);	

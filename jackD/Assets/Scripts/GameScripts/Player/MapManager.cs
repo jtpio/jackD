@@ -41,8 +41,8 @@ public class MapManager : MonoBehaviour {
 		if (Random.Range (0,100) < spawnRate) {
 			Vector3 playerPos = transform.position;
 			for (int i = 0; i < 5; i++) {
-				float posX = playerPos.x + Random.Range(-100, 100); 
-				float posZ = playerPos.z + Random.Range(-100, 100);
+				float posX = playerPos.x + Random.Range(-50, 50); 
+				float posZ = playerPos.z + Random.Range(-50, 50);
 				Vector3 posItem = new Vector3(posX, playerPos.y+2, posZ);
 				Instantiate(itemPrefab, posItem, Quaternion.identity);
 			}
@@ -113,20 +113,4 @@ public class MapManager : MonoBehaviour {
 		t.transform.position = newPos;
 	}
 	
-	Vector2 GetBoxPos(GameObject obj) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (grid[i,j].transform.gameObject.GetInstanceID() ==  obj.GetInstanceID()) return (new Vector2(i,j));
-			}
-		}
-		return (new Vector2(-1,-1));
-	}
-	
-	
-	void OnControllerColliderHit(ControllerColliderHit hit) {
-		if (hit.gameObject.name == "Item(Clone)") {
-			Debug.Log ("collision with item");	
-			Destroy(hit.gameObject);
-		}
-	}
 }
