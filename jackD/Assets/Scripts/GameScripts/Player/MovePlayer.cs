@@ -17,15 +17,16 @@ public class MovePlayer : MonoBehaviour {
 		CharacterController controller = GetComponent<CharacterController>();
 		
 		float angle = rotateAngle;		
-		if (Input.acceleration != null) {
-			angle = Input.acceleration.x*30;
-		}
-		
-		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)) {
-			transform.Rotate(0,-angle * Time.deltaTime, 0);
-		}
-		if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+		if (Application.platform == RuntimePlatform.Android) {
+			angle = Mathf.Min (Input.acceleration.x*10);
 			transform.Rotate(0,angle * Time.deltaTime, 0);
+		} else {
+			if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)) {
+				transform.Rotate(0,-angle * Time.deltaTime, 0);
+			}
+			if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+				transform.Rotate(0,angle * Time.deltaTime, 0);
+			}
 		}
 		controller.SimpleMove(transform.right * speed * Time.deltaTime);
 	}

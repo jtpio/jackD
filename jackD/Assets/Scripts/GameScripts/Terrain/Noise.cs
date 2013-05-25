@@ -33,7 +33,7 @@ public class Noise : MonoBehaviour {
 
 				Vector3 splat = new Vector3(0,1,0);
 				if (height < 0.9) {
-					splat = Vector3.Lerp(splat, new Vector3(0,0,1), (height-0.5f)*2 );
+					splat = Vector3.Lerp(splat, new Vector3(0,0,1), (height-0.9f)*2 );
 				} else {
 					splat = Vector3.Lerp(splat, new Vector3(1,0,0), height*2 );
 				}
