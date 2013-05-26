@@ -14,6 +14,13 @@ public class Intro : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (Application.platform == RuntimePlatform.Android && Input.touchCount >= 1) {
+			Application.LoadLevel(1);
+		} else if (Input.GetKey(KeyCode.S) ) {
+			// press escape to skip
+			Application.LoadLevel(1);
+		}
+		
 		if (showText) {
 			timer += Time.deltaTime;
 			audio.volume = audio.volume - 0.004f;
