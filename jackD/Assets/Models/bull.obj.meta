@@ -1,20 +1,15 @@
 fileFormatVersion: 2
-guid: c5ad708a01fa44d4c89fe0813e735889
+guid: 86fbbb9ae3bdb2149b6af3769f7215e3
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: Box001
-    100002: //RootNode
-    100004: default
-    400000: Box001
-    400002: //RootNode
-    400004: default
-    2300000: Box001
-    2300002: default
-    3300000: Box001
-    3300002: default
-    4300000: Box001
-    4300002: default
+    100000: //RootNode
+    100002: default
+    400000: //RootNode
+    400002: default
+    2300000: default
+    3300000: default
+    4300000: default
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -50,7 +45,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
@@ -66,5 +61,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 2
+  animationType: 0
   userData: 

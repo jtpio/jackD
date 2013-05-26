@@ -39,24 +39,26 @@ public class Boost : MonoBehaviour {
 		bool item = false;
 		switch(hitName) {
 		case "Cube(Clone)": 
-			score++;
 			item = true;
-			boost = true;
-			movePlayer.speed = movePlayer.refSpeed + BOOST;
-			time = 0;
 			break;
 		case "Bull(Clone)":
 			item = true;
 			break;
 		case "Tablet(Clone)":
-			
+			item = true;
+			break;
+		case "Cylinder(Clone)":
 			item = true;
 			break;
 		}
 		
 		if (item) {
 			Destroy(hit.gameObject);
+			score++;
 			animation.Play("feed");
+			boost = true;
+			movePlayer.speed = movePlayer.refSpeed + BOOST;
+			time = 0;
 		}
 	}
 	

@@ -6,10 +6,11 @@ public class MapManager : MonoBehaviour {
 	
 	// prefabs
 	public Terrain terrain;
-	public GameObject trigger;
-	public Transform itemPrefab;
+	public Transform[] items;
+	public Transform plant;
 	
-	public int spawnRate = 1; // over 1000
+	public float itemRate = 1; // over 100
+	public float plantRate = 1; // over 100
 	
 	protected Terrain[,] grid;
 	
@@ -42,23 +43,35 @@ public class MapManager : MonoBehaviour {
 			this.Step( new Vector2(1,currInds.y));
 		}
 		
-		if (Random.Range (0,100) < spawnRate) {
-			Vector3 playerPos = transform.position;
-			for (int i = 0; i < 5; i++) {
-				float posX = playerPos.x + Random.Range(-50, 50); 
-				float posZ = playerPos.z + Random.Range(-50, 50);
-				Vector3 posItem = new Vector3(posX, playerPos.y+2, posZ);
-				
-				Vector3 direction = -Vector3.up;
-				RaycastHit hit;
-				if (Physics.Raycast(posItem, direction, out hit, 1000f)) {
-					posItem = hit.point;
-				}
-				Instantiate(itemPrefab, posItem, Quaternion.identity);
-			}
-			
+		if (Random.Range (0,100) < itemRate) {
+			Spawn("item", 5);
 		}
 		
+		if (Random.Range(0, 200) < plantRate) {
+			Spawn("plant", 7);	
+		}
+	}
+	
+	void Spawn(string type, int nb) {
+		Vector3 playerPos = transform.position;
+		for (int i = 0; i < nb; i++) {
+			float posX = playerPos.x + Random.Range(-50, 50); 
+			float posZ = playerPos.z + Random.Range(-50, 50);
+			Vector3 posItem = new Vector3(posX, playerPos.y+2, posZ);
+			
+			Vector3 direction = -Vector3.up;
+			RaycastHit hit;
+			if (Physics.Raycast(posItem, direction, out hit, 1000f)) {
+				posItem = hit.point;
+			}
+			Vector3 newPos = new Vector3(posItem.x, posItem.y + 1, posItem.z);
+			if (type.Equals("plant")) {
+				Instantiate(plant, newPos, Quaternion.identity);
+			} else {
+				int prefab = (int)Random.Range(0, items.Length-1);
+				Instantiate(items[prefab], newPos, Quaternion.identity);
+			}
+		}	
 	}
 	
 	Vector2 currentIndices () {
