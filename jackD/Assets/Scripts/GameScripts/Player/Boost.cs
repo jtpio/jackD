@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Boost : MonoBehaviour {
 	
-	public float BOOST = 800;
+	public float BOOST = 600;
 	public float BOOST_TIME = 2;
 	
-	public float SLOW = -300;
+	public float SLOW = 400;
 	public float SLOW_TIME = 2;
 	
 	protected MovePlayer movePlayer;
@@ -21,10 +21,17 @@ public class Boost : MonoBehaviour {
 	protected float timer = 0;
 	
 	public GUIStyle style = new GUIStyle();
+		
+	// sound
+	AudioSource speedSound;
+	AudioSource thudSound;
 	
 	void Start () {
 		score = 0;
 		movePlayer = gameObject.GetComponent<MovePlayer>();
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+		speedSound = audioSources[0];
+		thudSound = audioSources[1];
 	}
 	
 	// Update is called once per frame
@@ -77,16 +84,18 @@ public class Boost : MonoBehaviour {
 		}
 		
 		if (item) {
+			speedSound.Play();
 			Destroy(hit.gameObject);
 			score++;
 			animation.Play("feed");
 			boost = true;
-			movePlayer.speed = Mathf.Min (movePlayer.refSpeed + 800, movePlayer.speed + BOOST);
+			movePlayer.speed = Mathf.Min (movePlayer.refSpeed + BOOST, movePlayer.speed + BOOST);
 			timeBoost = 0;
 		} else if (plant) {
+			thudSound.Play();
 			Destroy(hit.gameObject);
 			slow = true;
-			movePlayer.speed = Mathf.Max (movePlayer.refSpeed - 600, movePlayer.speed - SLOW);
+			movePlayer.speed = Mathf.Max (movePlayer.refSpeed - SLOW, movePlayer.speed - SLOW);
 			timeSlow = 0;
 		}
 	}
