@@ -48,6 +48,12 @@ public class MapManager : MonoBehaviour {
 				float posX = playerPos.x + Random.Range(-50, 50); 
 				float posZ = playerPos.z + Random.Range(-50, 50);
 				Vector3 posItem = new Vector3(posX, playerPos.y+2, posZ);
+				
+				Vector3 direction = -Vector3.up;
+				RaycastHit hit;
+				if (Physics.Raycast(posItem, direction, out hit, 1000f)) {
+					posItem = hit.point;
+				}
 				Instantiate(itemPrefab, posItem, Quaternion.identity);
 			}
 			
