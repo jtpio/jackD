@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Scoring : MonoBehaviour {
-
+		
 	protected int score = 0;
 	
 	void Start () {
@@ -11,15 +11,17 @@ public class Scoring : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (!animation.isPlaying) {
+			animation.Play("slide");	
+		}
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit) {
-		Debug.Log ("collision character");
 		if (hit.gameObject.name == "Cube(Clone)") {
 			Debug.Log ("collision with item");	
 			Destroy(hit.gameObject);
 			score++;
+			animation.Play("feed");
 		}
 	}
 	

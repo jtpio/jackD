@@ -10,6 +10,7 @@ public class MovePlayer : MonoBehaviour {
 	
 	void Start () {
 		transform.position.Set(posX, 0, posY);
+		animation.Play("slide");
 	}
 	
 	void Update () {
@@ -28,6 +29,6 @@ public class MovePlayer : MonoBehaviour {
 				transform.Rotate(0,angle * Time.deltaTime, 0);
 			}
 		}
-		controller.SimpleMove(transform.right * speed * Time.deltaTime);
+		controller.SimpleMove(transform.forward * speed * Time.deltaTime);
 	}
 }

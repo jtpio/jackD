@@ -1,14 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameScripts\Player\MapManager.cs">
-    <Files>
-      <File FileName="Assets\Scripts\GameScripts\Player\MapManager.cs" Line="131" Column="3" />
-      <File FileName="Assets\Scripts\GameScripts\Player\MovePlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GenericScripts\Utils.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameScripts\Terrain\Noise.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameScripts\Items\ItemLife.cs" Line="20" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
