@@ -37,10 +37,12 @@ public class MapManager : MonoBehaviour {
 		// map generation
 		Vector2 currInds = this.currentIndices();
 		if ( currInds.x != 1 ) {
-			this.Step( new Vector2(currInds.x,1));
+			Step( new Vector2(currInds.x,1));
+			Glue ();
 		}
 		if ( currInds.y != 1 ) {
-			this.Step( new Vector2(1,currInds.y));
+			Step( new Vector2(1,currInds.y));
+			Glue ();
 		}
 		
 		if (Random.Range (0,100) < itemRate) {
@@ -128,6 +130,19 @@ public class MapManager : MonoBehaviour {
 			Debug.Log ("oh shit " + center);
 		}
 		
+	}
+	
+	void Glue() {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				Terrain t = grid[i,j];
+				Terrain top = (i-1)>=0 ? grid[i-1,j]:null;
+				Terrain bottom = (i+1)<3 ? grid[i+1,j]:null;
+				Terrain left = (j-1)>=0 ? grid[i,j-1]:null;
+				Terrain right = (j+1)<3 ? grid[i,j+1]:null;
+				t.SetNeighbors(left, top, right, bottom);
+			}
+		}
 	}
 	
 	void TranslateTerrain(Terrain t, float dx, float dy, float dz) {
