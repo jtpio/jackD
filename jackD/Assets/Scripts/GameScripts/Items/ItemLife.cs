@@ -22,9 +22,10 @@ public class ItemLife : MonoBehaviour {
 			Vector3 direction = -Vector3.up;
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, direction, out hit, 1000f)) {
-				transform.position = hit.point;
+				Vector3 newPos = new Vector3(hit.point.x, hit.point.y + 1, hit.point.z);
+				transform.position = newPos;
 				grounded = true;
-			}	
+			}
 		}
 	}
 }

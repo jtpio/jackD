@@ -20,6 +20,8 @@ public class Boost : MonoBehaviour {
 	protected int score = 0;
 	protected float timer = 0;
 	
+	public GUIStyle style = new GUIStyle();
+	
 	void Start () {
 		score = 0;
 		movePlayer = gameObject.GetComponent<MovePlayer>();
@@ -89,14 +91,23 @@ public class Boost : MonoBehaviour {
 		}
 	}
 	
+	/*
 	void OnGUI () {
 		if (GUI.Button (new Rect (10,10,100,50), "Time: " + timeToString(timer))) {
 			
 		}
 		
 		if (GUI.Button (new Rect (10,70,100,50), "Score " + score)) {
-			print ("Clicked!");
+			
 		}
+	}
+	*/
+	
+	void OnGUI () {
+		GUI.Box(new Rect(10f, 10f, 400f,40f), 
+			"Time: " + timeToString(timer) + "\n" +
+			"Score " + score, style
+		);
 	}
 	
 	string timeToString(float time) {
