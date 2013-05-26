@@ -70,7 +70,7 @@ public class MapManager : MonoBehaviour {
 			if (type.Equals("plant")) {
 				Instantiate(plant, newPos, Quaternion.identity);
 			} else {
-				int prefab = (int)Random.Range(0, items.Length-1);
+				int prefab = (int)Random.Range(0, items.Length);
 				Instantiate(items[prefab], newPos, Quaternion.identity);
 			}
 		}	
