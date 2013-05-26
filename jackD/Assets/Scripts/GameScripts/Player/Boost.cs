@@ -28,7 +28,13 @@ public class Boost : MonoBehaviour {
 	AudioSource thudSound;
 	AudioSource smackingSound;
 	
+	ParticleEmitter leaf;
+		
 	void Awake() {
+		GameObject leafObject = GameObject.Find("Small explosion");
+		leaf = leafObject.GetComponent<ParticleEmitter>();
+		leaf.enabled = false;
+		
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		speedSound = audioSources[0];
 		thudSound = audioSources[1];
@@ -60,6 +66,8 @@ public class Boost : MonoBehaviour {
 			timeSlow += Time.deltaTime;
 			if (timeSlow > SLOW_TIME) {
 				timeSlow = 0;
+				leaf.enabled = false;
+				leaf.ClearParticles();
 				slow = false;
 				movePlayer.speed = movePlayer.refSpeed;
 			}	
@@ -114,6 +122,8 @@ public class Boost : MonoBehaviour {
 		} else if (plant) {
 			thudSound.Play();
 			Destroy(hit.gameObject);
+			leaf.enabled = true;
+			leaf.Emit();
 			slow = true;
 			movePlayer.speed = Mathf.Max (movePlayer.refSpeed - SLOW, movePlayer.speed - SLOW);
 			timeSlow = 0;
