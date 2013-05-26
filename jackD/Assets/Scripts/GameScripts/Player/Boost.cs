@@ -42,9 +42,12 @@ public class Boost : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (!animation.isPlaying) {
 			animation.Play("slide");	
 		}
+		
+		if (timer <= 0) return;
 		
 		if (boost) {
 			timeBoost += Time.deltaTime;
@@ -70,6 +73,7 @@ public class Boost : MonoBehaviour {
 		timer -= Time.deltaTime;
 		
 		if (timer <= 0) {
+			timer = 0;
 			Debug.Log ("finished");
 			PlayerPrefs.SetInt("score", score);
 			Application.LoadLevel(1);

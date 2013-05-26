@@ -44,16 +44,6 @@ public class MapManager : MonoBehaviour {
 			Step( new Vector2(1,currInds.y));
 			Glue ();
 		}
-		
-		/*
-		if (Random.Range (0,100) < itemRate) {
-			SpawnRandom("item", 5);
-		}
-		
-		if (Random.Range(0, 200) < plantRate) {
-			SpawnRandom("plant", 7);	
-		}
-		*/
 	}
 	
 	void SpawnRandom(string type, int nb) {
