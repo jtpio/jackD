@@ -18,7 +18,7 @@ public class Boost : MonoBehaviour {
 	
 	// scoring
 	protected int score = 0;
-	protected float timer = 60;
+	protected float timer = 120;
 	
 	public GUIStyle styleTimer = new GUIStyle();
 	public GUIStyle styleScore = new GUIStyle();
@@ -76,7 +76,7 @@ public class Boost : MonoBehaviour {
 			timer = 0;
 			Debug.Log ("finished");
 			PlayerPrefs.SetInt("score", score);
-			Application.LoadLevel(1);
+			Application.LoadLevel(2);
 		}
 	}
 	

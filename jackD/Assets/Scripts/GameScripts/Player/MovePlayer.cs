@@ -12,7 +12,7 @@ public class MovePlayer : MonoBehaviour {
 	
 	void Start () {
 		refSpeed = speed;
-		transform.position.Set(posX, 0, posY);
+		transform.position.Set(posX, 5, posY);
 		animation.Play("slide");
 	}
 	
