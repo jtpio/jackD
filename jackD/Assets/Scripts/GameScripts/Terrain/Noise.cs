@@ -10,7 +10,7 @@ public class Noise : MonoBehaviour {
 		terrain = GetComponent<Terrain>();
 		GenerateNoise(0);
 		GenerateNoise(1);
-		ProceduralTextures();
+		//ProceduralTextures();
 	}
 	
 	void GenerateNoise(int tileSize) {

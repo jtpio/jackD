@@ -18,20 +18,26 @@ public class Boost : MonoBehaviour {
 	
 	// scoring
 	protected int score = 0;
-	protected float timer = 0;
+	protected float timer = 60;
 	
-	public GUIStyle style = new GUIStyle();
+	public GUIStyle styleTimer = new GUIStyle();
+	public GUIStyle styleScore = new GUIStyle();
 		
 	// sound
 	AudioSource speedSound;
 	AudioSource thudSound;
+	AudioSource smackingSound;
+	
+	void Awake() {
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+		speedSound = audioSources[0];
+		thudSound = audioSources[1];
+		smackingSound = audioSources[2];
+	}
 	
 	void Start () {
 		score = 0;
 		movePlayer = gameObject.GetComponent<MovePlayer>();
-		AudioSource[] audioSources = GetComponents<AudioSource>();
-		speedSound = audioSources[0];
-		thudSound = audioSources[1];
 	}
 	
 	// Update is called once per frame
@@ -56,8 +62,18 @@ public class Boost : MonoBehaviour {
 			}	
 		}
 		
+		if (Random.Range(0,300) < 1) {
+			smackingSound.Play();
+		}
+		
 		// update timer
-		timer += Time.deltaTime;
+		timer -= Time.deltaTime;
+		
+		if (timer <= 0) {
+			Debug.Log ("finished");
+			PlayerPrefs.SetInt("score", score);
+			Application.LoadLevel(1);
+		}
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit) {
@@ -102,8 +118,11 @@ public class Boost : MonoBehaviour {
 	
 	void OnGUI () {
 		GUI.Box(new Rect(10f, 10f, 400f,40f), 
-			"Time: " + timeToString(timer) + "\n" +
-			"Score " + score, style
+			timeToString(timer), styleTimer
+		);
+		
+		GUI.Box (new Rect(200f, 10f, 400f, 40f), 
+			" "+score, styleScore
 		);
 	}
 	
