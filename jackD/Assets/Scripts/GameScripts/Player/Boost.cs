@@ -81,27 +81,15 @@ public class Boost : MonoBehaviour {
 			score++;
 			animation.Play("feed");
 			boost = true;
-			movePlayer.speed = Mathf.Min (movePlayer.refSpeed + 1000, movePlayer.speed + BOOST);
+			movePlayer.speed = Mathf.Min (movePlayer.refSpeed + 800, movePlayer.speed + BOOST);
 			timeBoost = 0;
 		} else if (plant) {
 			Destroy(hit.gameObject);
 			slow = true;
-			movePlayer.speed = Mathf.Max (movePlayer.refSpeed - 800, movePlayer.speed - SLOW);
+			movePlayer.speed = Mathf.Max (movePlayer.refSpeed - 600, movePlayer.speed - SLOW);
 			timeSlow = 0;
 		}
 	}
-	
-	/*
-	void OnGUI () {
-		if (GUI.Button (new Rect (10,10,100,50), "Time: " + timeToString(timer))) {
-			
-		}
-		
-		if (GUI.Button (new Rect (10,70,100,50), "Score " + score)) {
-			
-		}
-	}
-	*/
 	
 	void OnGUI () {
 		GUI.Box(new Rect(10f, 10f, 400f,40f), 
