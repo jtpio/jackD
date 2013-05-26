@@ -24,12 +24,15 @@ public class MovePlayer : MonoBehaviour {
 		if (Application.platform == RuntimePlatform.Android) {
 			angle = Input.acceleration.x*100;
 			transform.Rotate(0,angle * Time.deltaTime, 0);
+			transform.Rotate(transform.forward, angle/50);
 		} else {
 			if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q)) {
 				transform.Rotate(0,-angle * Time.deltaTime, 0);
+				transform.Rotate(transform.forward, Mathf.Min (angle/10, 40) * Time.deltaTime);
 			}
 			if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
 				transform.Rotate(0,angle * Time.deltaTime, 0);
+				transform.Rotate(transform.forward, - Mathf.Min (angle/10, 40)*Time.deltaTime);
 			}
 		}
 		controller.SimpleMove(transform.forward * speed * Time.deltaTime);

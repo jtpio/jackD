@@ -45,16 +45,18 @@ public class MapManager : MonoBehaviour {
 			Glue ();
 		}
 		
+		/*
 		if (Random.Range (0,100) < itemRate) {
-			Spawn("item", 5);
+			SpawnRandom("item", 5);
 		}
 		
 		if (Random.Range(0, 200) < plantRate) {
-			Spawn("plant", 7);	
+			SpawnRandom("plant", 7);	
 		}
+		*/
 	}
 	
-	void Spawn(string type, int nb) {
+	void SpawnRandom(string type, int nb) {
 		Vector3 playerPos = transform.position;
 		for (int i = 0; i < nb; i++) {
 			float posX = playerPos.x + Random.Range(-50, 50); 
@@ -73,7 +75,7 @@ public class MapManager : MonoBehaviour {
 				int prefab = (int)Random.Range(0, items.Length);
 				Instantiate(items[prefab], newPos, Quaternion.identity);
 			}
-		}	
+		}
 	}
 	
 	Vector2 currentIndices () {
@@ -92,6 +94,28 @@ public class MapManager : MonoBehaviour {
 		return (new Vector2(1,1));
 	}
 	
+	void SpawnFromTerrain(Terrain t, string type, int nb) {
+		for (int i = 0; i < nb; i++) {
+			Vector3 pos = t.transform.position;
+			float posX = pos.x + Random.Range(0, terrainSize); 
+			float posZ = pos.z + Random.Range(0, terrainSize);
+			Vector3 posItem = new Vector3(posX, 10, posZ);
+			
+			Vector3 direction = -Vector3.up;
+			RaycastHit hit;
+			if (Physics.Raycast(posItem, direction, out hit, 1000f)) {
+				posItem = hit.point;
+			}
+			Vector3 newPos = new Vector3(posItem.x, posItem.y + 1, posItem.z);
+			if (type.Equals("plant")) {
+				Instantiate(plant, newPos, Quaternion.identity);
+			} else {
+				int prefab = (int)Random.Range(0, items.Length);
+				Instantiate(items[prefab], newPos, Quaternion.identity);
+			}
+		}
+	}
+	
 	void Step(Vector2 center) {
 		Terrain[,] newGrid = new Terrain[3,3];
 		Vector2 diff = center + (new Vector2(2,2));
@@ -106,24 +130,32 @@ public class MapManager : MonoBehaviour {
 		if (center.x == 1 && center.y == 2) {
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[i,0], 0, 0, 3*terrainSize);
+				SpawnFromTerrain(grid[i,0], "plant", 5);
+				SpawnFromTerrain(grid[i,0], "item", 7);
 			}
 			grid = newGrid;
 		} else if (center.x == 1 && center.y == 0) {
-			// going dozn
+			// going down
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[i,2], 0, 0, -3*terrainSize);
+				SpawnFromTerrain(grid[i,2], "plant", 5);
+				SpawnFromTerrain(grid[i,2], "item", 7);
 			}
 			grid = newGrid;
 		} else if (center.x == 0 && center.y == 1) {
 			// going left
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[2,i], -3*terrainSize, 0, 0);
+				SpawnFromTerrain(grid[2,i], "plant", 5);
+				SpawnFromTerrain(grid[2,i], "item", 7);
 			}
 			grid = newGrid;
 		} else if (center.x == 2 && center.y == 1) {
 			//going right
 			for (int i = 0; i < 3; i++) {
 				TranslateTerrain(grid[0,i], 3*terrainSize, 0, 0);
+				SpawnFromTerrain(grid[0,i], "plant", 5);
+				SpawnFromTerrain(grid[0,i], "item", 7);
 			}
 			grid = newGrid;
 		} else {

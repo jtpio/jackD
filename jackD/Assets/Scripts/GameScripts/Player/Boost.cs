@@ -6,7 +6,7 @@ public class Boost : MonoBehaviour {
 	public float BOOST = 800;
 	public float BOOST_TIME = 2;
 	
-	public float SLOW = -800;
+	public float SLOW = -300;
 	public float SLOW_TIME = 2;
 	
 	protected MovePlayer movePlayer;
