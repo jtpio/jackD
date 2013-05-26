@@ -29,11 +29,16 @@ public class Boost : MonoBehaviour {
 	AudioSource smackingSound;
 	
 	ParticleEmitter leaf;
+	ParticleEmitter heart;
 		
 	void Awake() {
 		GameObject leafObject = GameObject.Find("Small explosion");
 		leaf = leafObject.GetComponent<ParticleEmitter>();
 		leaf.enabled = false;
+		
+		GameObject heartObject = GameObject.Find("Heart");
+		heart = heartObject.GetComponent<ParticleEmitter>();
+		heart.enabled = false;
 		
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		speedSound = audioSources[0];
@@ -59,6 +64,8 @@ public class Boost : MonoBehaviour {
 			timeBoost += Time.deltaTime;
 			if (timeBoost > BOOST_TIME) {
 				timeBoost = 0;
+				heart.ClearParticles();
+				heart.enabled = false;
 				boost = false;
 				movePlayer.speed = movePlayer.refSpeed;
 			}
@@ -116,6 +123,8 @@ public class Boost : MonoBehaviour {
 			Destroy(hit.gameObject);
 			score++;
 			animation.Play("feed");
+			heart.enabled = true;
+			heart.Emit();
 			boost = true;
 			movePlayer.speed = Mathf.Min (movePlayer.refSpeed + BOOST, movePlayer.speed + BOOST);
 			timeBoost = 0;
