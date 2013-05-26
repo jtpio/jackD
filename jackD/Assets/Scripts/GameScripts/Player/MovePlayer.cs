@@ -6,9 +6,12 @@ public class MovePlayer : MonoBehaviour {
 	public float posX = 125;
 	public float posY = 125;
 	public float speed = 900f;
+	public float refSpeed;
 	public float rotateAngle = 50f;
+	public float tiltAngle = 1f;
 	
 	void Start () {
+		refSpeed = speed;
 		transform.position.Set(posX, 0, posY);
 		animation.Play("slide");
 	}

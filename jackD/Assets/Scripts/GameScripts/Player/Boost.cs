@@ -2,9 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class Boost : MonoBehaviour {
-		
+	
+	public float BOOST = 800;
+	public float BOOST_TIME = 2;
+	
 	protected int score = 0;
 	protected MovePlayer movePlayer;
+	
+	protected float time = 0;
+	protected bool boost = false;
 	
 	void Start () {
 		score = 0;
@@ -16,6 +22,15 @@ public class Boost : MonoBehaviour {
 		if (!animation.isPlaying) {
 			animation.Play("slide");	
 		}
+		
+		if (boost) {
+			time += Time.deltaTime;
+			if (time > BOOST_TIME) {
+				time = 0;
+				boost = false;
+				movePlayer.speed = movePlayer.refSpeed;
+			}
+		}
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit) {
@@ -26,9 +41,11 @@ public class Boost : MonoBehaviour {
 		case "Cube(Clone)": 
 			score++;
 			item = true;
+			boost = true;
+			movePlayer.speed = movePlayer.refSpeed + BOOST;
+			time = 0;
 			break;
 		case "Bull(Clone)":
-			
 			item = true;
 			break;
 		case "Tablet(Clone)":
