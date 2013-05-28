@@ -7,13 +7,10 @@ public class Noise : MonoBehaviour {
 	public int offset = 5;
 	
 	void Start () {
-		terrain = GetComponent<Terrain>();
-		GenerateNoise(0);
-		GenerateNoise(1);
-		//ProceduralTextures();
 	}
 	
-	void GenerateNoise(int tileSize) {
+	public void GenerateNoise(int tileSize) {
+		terrain = GetComponent<Terrain>();
 		float[,] heights = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
 		for (int i = 0; i < terrain.terrainData.heightmapWidth; i++) {
 			for (int j = 0; j < terrain.terrainData.heightmapHeight; j++) {

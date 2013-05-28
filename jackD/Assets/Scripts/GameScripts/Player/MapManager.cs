@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour {
 	
 	void Awake() {
 		terrainSize = terrain.terrainData.size.x;
-		
+		terrain.GetComponent<Noise>().GenerateNoise(1);
 		grid = new Terrain[3,3];
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {

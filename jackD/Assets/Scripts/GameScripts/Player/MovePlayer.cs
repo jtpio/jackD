@@ -6,6 +6,7 @@ public class MovePlayer : MonoBehaviour {
 	public float posX = 125;
 	public float posY = 125;
 	public float speed = 900f;
+	public float speedFactor = 2f;
 	public float refSpeed;
 	public float rotateAngle = 50f;
 	public float tiltAngle = 1f;
@@ -14,6 +15,12 @@ public class MovePlayer : MonoBehaviour {
 		refSpeed = speed;
 		transform.position.Set(posX, 5, posY);
 		animation.Play("slide");
+		
+		if (Application.platform == RuntimePlatform.Android) {
+			speedFactor = 1f;	
+		}
+		refSpeed *= speedFactor;
+		speed *= speedFactor;
 	}
 	
 	void Update () {

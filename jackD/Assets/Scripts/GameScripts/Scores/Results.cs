@@ -25,7 +25,7 @@ public class Results : MonoBehaviour {
 		);
 		
 		if (GUI.Button(new Rect(200f, 300f, 400f,40f),"Restart?", buttonStyle)) {
-			Application.LoadLevel(0);
+			Application.LoadLevel(1);
 		}
 	}
 }
